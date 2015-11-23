@@ -147,42 +147,14 @@ public class ProcCalledRely {
                 for (endIdx = startIdx + "from ".length(); endIdx <= mainProcStmt.length() - "where ".length(); endIdx++) {
                     if (mainProcStmt.substring(endIdx, endIdx + "where ".length()).equals("where ")
                             || mainProcStmt.substring(endIdx, endIdx + ";".length()).equals(";")) {
-                        String tmpStmt = mainProcStmt.substring(startIdx, endIdx);
+                        String tmpStmt = mainProcStmt.substring(startIdx + "from ".length(), endIdx);
                         //System.out.println("from to where: " + tmpStmt);
                         if (tmpStmt.contains(",")) {
                             System.out.println("from to where: " + tmpStmt);
                             //System.out.println(tmpStmt.indexOf(" "));
-                            for (int eIdx = "from ".length(); eIdx <= tmpStmt.length() - " ".length(); eIdx++) {
-                                if (tmpStmt.substring(eIdx, eIdx + " ".length()).equals(" ")
-                                        || tmpStmt.substring(eIdx, eIdx + ",".length()).equals(",")
-                                        || tmpStmt.substring(eIdx, eIdx + ";".length()).equals(";")) {
-                                    System.out.println("First: " + tmpStmt.substring("from ".length(), eIdx));
-                                    break;
-                                }
-                            }
-
-                            tmpStmt = tmpStmt.substring(tmpStmt.indexOf(","));
-                            //System.out.println("cut: " + tmpStmt);
-                            for (int sIdx = 1; sIdx <= tmpStmt.length() - ",".length(); sIdx++) {
-                                if (!tmpStmt.substring(sIdx, sIdx + " ".length()).equals(" ")
-                                        && !tmpStmt.substring(sIdx, sIdx + "\n".length()).equals("\n")) {
-                                    System.out.println("非空格: " + tmpStmt.substring(sIdx));
-                                    tmpStmt = tmpStmt.substring(sIdx);
-                                    for (int eIdx = 0; eIdx <= tmpStmt.length() - " ".length(); eIdx++) {
-                                        if (tmpStmt.substring(eIdx, eIdx + ",".length()).equals(",")
-                                                || tmpStmt.substring(eIdx, eIdx + ";".length()).equals(";")
-                                                || tmpStmt.substring(eIdx, eIdx + " ".length()).equals(" ")
-                                                || tmpStmt.substring(eIdx, eIdx + "\n".length()).equals("\n")) {
-                                            System.out.println("Followed: " + tmpStmt.substring(0, eIdx));
-                                            if (tmpStmt.contains(",")) {
-                                                tmpStmt = tmpStmt.substring(tmpStmt.indexOf(",", ",".length()));
-                                                sIdx = tmpStmt.indexOf(",");
-                                            }
-                                            System.out.println("cut: " + tmpStmt);
-                                            break;
-                                        }
-                                    }
-                                }
+                            String[] tmpSubStr = tmpStmt.split(",");
+                            for (String e : tmpSubStr) {
+                                System.out.println("these is : " + e.trim());
                             }
                         }
                         break;
