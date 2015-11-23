@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7cb7222-9750-421e-bb0a-531c1d2ef001" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/zexin/procparserely/ProcCalledRely.java" afterPath="$PROJECT_DIR$/src/com/zexin/procparserely/ProcCalledRely.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ProcParseRely.iws" />
@@ -431,7 +430,13 @@
       <option name="project" value="LOCAL" />
       <updated>1448243219451</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="获取from 与where 之间的table列表。">
+      <created>1448243964417</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1448243964417</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
