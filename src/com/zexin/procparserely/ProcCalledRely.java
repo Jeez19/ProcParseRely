@@ -70,7 +70,8 @@ public class ProcCalledRely {
                 for (endIdx = startIdx + "insert into ".length(); endIdx <= mainProcStmt.length() - " ".length(); endIdx++) {
                     if (mainProcStmt.substring(endIdx, endIdx + " ".length()).equals(" ")
                             || mainProcStmt.substring(endIdx, endIdx + "(".length()).equals("(")) {
-
+                        //System.out.println("insert: " + mainProcStmt.substring(startIdx + "insert into ".length(), endIdx));
+                        tmpMap.put(mainProcStmt.substring(startIdx + "insert into ".length(), endIdx), "insert");
                         break;
                     }
                 }
@@ -80,7 +81,8 @@ public class ProcCalledRely {
                 for (endIdx = startIdx + "merge into ".length(); endIdx <= mainProcStmt.length() - " ".length(); endIdx++) {
                     if (mainProcStmt.substring(endIdx, endIdx + " ".length()).equals(" ")
                             || mainProcStmt.substring(endIdx, endIdx + "(".length()).equals("(")) {
-
+                        //System.out.println("merge: " + mainProcStmt.substring(startIdx + "merge into ".length(), endIdx));
+                        tmpMap.put(mainProcStmt.substring(startIdx + "merge into ".length(), endIdx), "insert");
                         break;
                     }
                 }
@@ -90,7 +92,8 @@ public class ProcCalledRely {
                 for (endIdx = startIdx + "update ".length(); endIdx <= mainProcStmt.length() - " ".length(); endIdx++) {
                     if (mainProcStmt.substring(endIdx, endIdx + " ".length()).equals(" ")
                             || mainProcStmt.substring(endIdx, endIdx + "(".length()).equals("(")) {
-
+                        //System.out.println("update: " + mainProcStmt.substring(startIdx + "update ".length(), endIdx));
+                        tmpMap.put(mainProcStmt.substring(startIdx + "update ".length(), endIdx), "insert");
                         break;
                     }
                 }
@@ -115,22 +118,36 @@ public class ProcCalledRely {
                     if (mainProcStmt.substring(endIdx, endIdx + "where ".length()).equals("where ")
                             || mainProcStmt.substring(endIdx, endIdx + ";".length()).equals(";")) {
                         String tmpStmt = mainProcStmt.substring(startIdx + "from ".length(), endIdx);
+                        //System.out.println("from to where: " + tmpStmt);
                         if (tmpStmt.contains(",")) {
-                            System.out.println("from to where: " + tmpStmt);
+                            //System.out.println("from to where: " + tmpStmt);
+                            //System.out.println(tmpStmt.indexOf(" "));
                             String[] tmpSubStr = tmpStmt.split(",");
                             for (String e : tmpSubStr) {
-                                System.out.println("    these is : " + e.trim());
+                                //System.out.println("    these is : " + e.trim());
                                 e = e.trim();
                                 if (!e.contains(" ")) {
-                                    System.out.println("        So the subTable is:" + e);
+                                    //System.out.println("        So the subTable is:" + e);
+                                    tmpMap.put(e, "from");
                                 } else {
                                     for (int i = 0; i < e.length(); i++) {
                                         if (e.substring(i, i + " ".length()).equals(" ")
                                                 || e.substring(i, i + "\n".length()).equals("\n")) {
-                                            System.out.println("        So the subTable is:" + e.substring(0, i));
+                                            //System.out.println("        So the subTable is:" + e.substring(0, i));
+                                            tmpMap.put(e.substring(0, i), "from");
                                             break;
                                         }
                                     }
+                                }
+                            }
+                        } else {
+                            String e = tmpStmt;
+                            for (int i = 0; i < e.length(); i++) {
+                                if (e.substring(i, i + " ".length()).equals(" ")
+                                        || e.substring(i, i + "\n".length()).equals("\n")) {
+                                    //System.out.println("        So the subTable is:" + e.substring(0, i));
+                                    tmpMap.put(e.substring(0, i), "from");
+                                    break;
                                 }
                             }
                         }
@@ -146,7 +163,8 @@ public class ProcCalledRely {
                             || mainProcStmt.substring(endIdx, endIdx + ")".length()).equals(")")
                             || mainProcStmt.substring(endIdx, endIdx + ";".length()).equals(";"))
                             && !mainProcStmt.substring(startIdx + "using ".length(), startIdx + "using ".length() + 1).equals("(")) {
-
+                        //System.out.println("using: " + mainProcStmt.substring(startIdx + "using ".length(), endIdx));
+                        tmpMap.put(mainProcStmt.substring(startIdx + "using ".length(), endIdx), "from");
                         break;
                     }
                 }
@@ -158,7 +176,8 @@ public class ProcCalledRely {
                             || mainProcStmt.substring(endIdx, endIdx + ")".length()).equals(")")
                             || mainProcStmt.substring(endIdx, endIdx + ";".length()).equals(";"))
                             && !mainProcStmt.substring(startIdx + "join ".length(), startIdx + "join ".length() + 1).equals("(")) {
-
+                        //System.out.println("join: " + mainProcStmt.substring(startIdx + "join ".length(), endIdx));
+                        tmpMap.put(mainProcStmt.substring(startIdx + "join ".length(), endIdx), "from");
                         break;
                     }
                 }
