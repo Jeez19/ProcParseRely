@@ -16,9 +16,7 @@ public class ProcCalledRely {
     ProcCalledRely(String procName, String procStmt) {
         this.mainProc = procName;
         this.mainProcStmt = procStmt.toLowerCase();
-        //System.out.println("过程为：\n" + this.mainProcStmt);
-        //System.out.println("过程字符长度为：" + this.mainProcStmt.length());
-        //this.subProc = this.spRetrieve(this.mainProcStmt);
+        this.subProc = this.spRetrieve(this.mainProcStmt);
         this.tbMap = this.tbRetrieve(this.mainProcStmt);
     }
 
@@ -26,19 +24,6 @@ public class ProcCalledRely {
         ArrayList tmpList = new ArrayList();
         int startIdx;
         int endIdx;
-//        String strPkg = " pkg_";
-//        String strPkgL = "'pkg_";
-//        String strNotPkg = " pkg_module_parallel";
-//        String strSp = " sp_";
-//        String strSpL = "'sp_";
-//        //String strNotSp = " sp_parallel_run";
-//        //String strNotSpRunTask = " sp_run_task";
-//        String strPoint = ".";
-//        String strBraF = "(";
-//        String strBraA = "')";
-//        String strSem = ";";
-        int pkgcnt = 1;
-        int spcnt = 1;
         for (startIdx = 0; startIdx <= mainProcStmt.length() - " pkg_module_parallel".length(); startIdx++) {
             if ((mainProcStmt.substring(startIdx, startIdx + " pkg_".length()).equals(" pkg_")
                     || mainProcStmt.substring(startIdx, startIdx + "'pkg_".length()).equals("'pkg_"))
@@ -47,18 +32,13 @@ public class ProcCalledRely {
                     if (mainProcStmt.substring(endIdx, endIdx + ".".length()).equals(".")
                             || mainProcStmt.substring(endIdx, endIdx + "(".length()).equals("(")) {
                         tmpList.add(mainProcStmt.substring(startIdx + 1, endIdx));
-                        //System.out.println("startIdx: " + startIdx);
-                        //System.out.println("endIdx: " + endIdx);
-                        System.out.println("包名为：" + mainProcStmt.substring(startIdx + 1, endIdx));
-                        pkgcnt++;
+                        //System.out.println("包名为：" + mainProcStmt.substring(startIdx + 1, endIdx));
                         break;
                     }
                 }
             }
         }
-        System.out.println(pkgcnt);
 
-        //System.out.println("\n\n\n\n\n我草你爸爸！\n\n\n\n\n");
         for (startIdx = 0; startIdx <= mainProcStmt.length() - " pkg_module_parallel".length(); startIdx++) {
             if (mainProcStmt.substring(startIdx, startIdx + " sp_".length()).equals(" sp_")
                     || mainProcStmt.substring(startIdx, startIdx + "'sp_".length()).equals("'sp_")) {
@@ -68,17 +48,13 @@ public class ProcCalledRely {
                             || mainProcStmt.substring(endIdx, endIdx + "')".length()).equals("')")) {
                         if (mainProcStmt.substring(startIdx + 1, endIdx).indexOf(this.mainProc) == -1) {
                             tmpList.add(mainProcStmt.substring(startIdx + 1, endIdx));
-                            //System.out.println("startIdx: " + startIdx);
-                            //System.out.println("endIdx: " + endIdx);
-                            System.out.println("过程名为：" + mainProcStmt.substring(startIdx + 1, endIdx));
-                            spcnt++;
+                            //System.out.println("过程名为：" + mainProcStmt.substring(startIdx + 1, endIdx));
                             break;
                         }
                     }
                 }
             }
         }
-        System.out.println(spcnt);
 
 
         return tmpList;
@@ -88,22 +64,13 @@ public class ProcCalledRely {
         Map tmpMap = new HashMap();
         int startIdx;
         int endIdx;
-//        String strInsert = "insert into ";
-//        String strMerge = "merge into ";
-//        String strFrom = "from ";
-//        String strUsing = "using";
-//        String strJoin = "join ";
-//        String strBraB = "(";
-//        String strBlk = " ";
-//        String strNotFrom = "dual";
-
 
         for (startIdx = 0; startIdx <= mainProcStmt.length() - 20; startIdx++) {
             if (mainProcStmt.substring(startIdx, startIdx + "insert into ".length()).equals("insert into ")) {
                 for (endIdx = startIdx + "insert into ".length(); endIdx <= mainProcStmt.length() - " ".length(); endIdx++) {
                     if (mainProcStmt.substring(endIdx, endIdx + " ".length()).equals(" ")
                             || mainProcStmt.substring(endIdx, endIdx + "(".length()).equals("(")) {
-                        //System.out.println("insert: " + mainProcStmt.substring(startIdx + "insert into ".length(), endIdx));
+
                         break;
                     }
                 }
@@ -113,7 +80,7 @@ public class ProcCalledRely {
                 for (endIdx = startIdx + "merge into ".length(); endIdx <= mainProcStmt.length() - " ".length(); endIdx++) {
                     if (mainProcStmt.substring(endIdx, endIdx + " ".length()).equals(" ")
                             || mainProcStmt.substring(endIdx, endIdx + "(".length()).equals("(")) {
-                        //System.out.println("merge: " + mainProcStmt.substring(startIdx + "merge into ".length(), endIdx));
+
                         break;
                     }
                 }
@@ -123,7 +90,7 @@ public class ProcCalledRely {
                 for (endIdx = startIdx + "update ".length(); endIdx <= mainProcStmt.length() - " ".length(); endIdx++) {
                     if (mainProcStmt.substring(endIdx, endIdx + " ".length()).equals(" ")
                             || mainProcStmt.substring(endIdx, endIdx + "(".length()).equals("(")) {
-                        //System.out.println("update: " + mainProcStmt.substring(startIdx + "update ".length(), endIdx));
+
                         break;
                     }
                 }
@@ -148,13 +115,23 @@ public class ProcCalledRely {
                     if (mainProcStmt.substring(endIdx, endIdx + "where ".length()).equals("where ")
                             || mainProcStmt.substring(endIdx, endIdx + ";".length()).equals(";")) {
                         String tmpStmt = mainProcStmt.substring(startIdx + "from ".length(), endIdx);
-                        //System.out.println("from to where: " + tmpStmt);
                         if (tmpStmt.contains(",")) {
                             System.out.println("from to where: " + tmpStmt);
-                            //System.out.println(tmpStmt.indexOf(" "));
                             String[] tmpSubStr = tmpStmt.split(",");
                             for (String e : tmpSubStr) {
-                                System.out.println("these is : " + e.trim());
+                                System.out.println("    these is : " + e.trim());
+                                e = e.trim();
+                                if (!e.contains(" ")) {
+                                    System.out.println("        So the subTable is:" + e);
+                                } else {
+                                    for (int i = 0; i < e.length(); i++) {
+                                        if (e.substring(i, i + " ".length()).equals(" ")
+                                                || e.substring(i, i + "\n".length()).equals("\n")) {
+                                            System.out.println("        So the subTable is:" + e.substring(0, i));
+                                            break;
+                                        }
+                                    }
+                                }
                             }
                         }
                         break;
@@ -169,7 +146,7 @@ public class ProcCalledRely {
                             || mainProcStmt.substring(endIdx, endIdx + ")".length()).equals(")")
                             || mainProcStmt.substring(endIdx, endIdx + ";".length()).equals(";"))
                             && !mainProcStmt.substring(startIdx + "using ".length(), startIdx + "using ".length() + 1).equals("(")) {
-                        //System.out.println("using: " + mainProcStmt.substring(startIdx + "using ".length(), endIdx));
+
                         break;
                     }
                 }
@@ -181,7 +158,7 @@ public class ProcCalledRely {
                             || mainProcStmt.substring(endIdx, endIdx + ")".length()).equals(")")
                             || mainProcStmt.substring(endIdx, endIdx + ";".length()).equals(";"))
                             && !mainProcStmt.substring(startIdx + "join ".length(), startIdx + "join ".length() + 1).equals("(")) {
-                        //System.out.println("join: " + mainProcStmt.substring(startIdx + "join ".length(), endIdx));
+
                         break;
                     }
                 }
