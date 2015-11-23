@@ -10,8 +10,8 @@ import java.util.Map;
 public class ProcCalledRely {
     String mainProc;
     String mainProcStmt;
-    ArrayList subProc;
-    Map tbMap;
+    ArrayList<String> subProc;
+    Map<String, String> tbMap;
 
     ProcCalledRely(String procName, String procStmt) {
         this.mainProc = procName;
@@ -20,8 +20,8 @@ public class ProcCalledRely {
         this.tbMap = this.tbRetrieve(this.mainProcStmt);
     }
 
-    ArrayList spRetrieve(String mainProcStmt) {
-        ArrayList tmpList = new ArrayList();
+    ArrayList<String> spRetrieve(String mainProcStmt) {
+        ArrayList<String> tmpList = new ArrayList<String>();
         int startIdx;
         int endIdx;
         for (startIdx = 0; startIdx <= mainProcStmt.length() - " pkg_module_parallel".length(); startIdx++) {
@@ -61,7 +61,7 @@ public class ProcCalledRely {
     }
 
     Map tbRetrieve(String mainProcStmt) {
-        Map tmpMap = new HashMap();
+        Map<String, String> tmpMap = new HashMap<String, String>();
         int startIdx;
         int endIdx;
 

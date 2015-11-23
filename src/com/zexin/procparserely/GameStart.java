@@ -197,6 +197,14 @@ public class GameStart {
         //System.out.println(sqlStmt.strStmtDetail);
 
         ProcCalledRely procCalledRely = new ProcCalledRely(sqlStmt.strTBName, sqlStmt.strStmtDetail);
+        System.out.println("MainProc is:" + procCalledRely.mainProc);
+        for (String e : procCalledRely.subProc) {
+            System.out.println("        SubProc is:" + e);
+        }
+        System.out.println("\n");
+        for (String key : procCalledRely.tbMap.keySet()) {
+            System.out.println("        SubTable is:" + key + ", and the rely type is:" + procCalledRely.tbMap.get(key));
+        }
 
         //System.out.println("主过程名：" + procCalledRely.mainProc);
         /*
