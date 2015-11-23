@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f7cb7222-9750-421e-bb0a-531c1d2ef001" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProcParseRely/com/zexin/procparserely/ProcCalledRely.class" afterPath="$PROJECT_DIR$/out/production/ProcParseRely/com/zexin/procparserely/ProcCalledRely.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/zexin/procparserely/ProcCalledRely.java" afterPath="$PROJECT_DIR$/src/com/zexin/procparserely/ProcCalledRely.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ProcParseRely.iws" />
@@ -39,8 +38,8 @@
       <file leaf-file-name="ProcCalledRely.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/zexin/procparserely/ProcCalledRely.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.45081967">
-              <caret line="160" column="0" selection-start-line="160" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.6557377">
+              <caret line="165" column="9" selection-start-line="165" selection-start-column="9" selection-end-line="165" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -420,7 +419,13 @@
       <option name="project" value="LOCAL" />
       <updated>1448242164144</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="获取from 与where 之间的table列表。">
+      <created>1448243184211</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1448243184211</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -695,8 +700,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/zexin/procparserely/ProcCalledRely.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45081967">
-          <caret line="160" column="0" selection-start-line="160" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.6557377">
+          <caret line="165" column="9" selection-start-line="165" selection-start-column="9" selection-end-line="165" selection-end-column="9" />
           <folding />
         </state>
       </provider>
