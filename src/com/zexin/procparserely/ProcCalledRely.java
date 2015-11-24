@@ -31,7 +31,9 @@ public class ProcCalledRely {
                 for (endIdx = startIdx; endIdx <= mainProcStmt.length() - " pkg_module_parallel".length(); endIdx++) {
                     if (mainProcStmt.substring(endIdx, endIdx + ".".length()).equals(".")
                             || mainProcStmt.substring(endIdx, endIdx + "(".length()).equals("(")) {
-                        tmpList.add(mainProcStmt.substring(startIdx + 1, endIdx));
+                        if (!tmpList.contains(mainProcStmt.substring(startIdx + 1, endIdx))) {
+                            tmpList.add(mainProcStmt.substring(startIdx + 1, endIdx));
+                        }
                         //System.out.println("包名为：" + mainProcStmt.substring(startIdx + 1, endIdx));
                         break;
                     }
@@ -47,7 +49,9 @@ public class ProcCalledRely {
                             || mainProcStmt.substring(endIdx, endIdx + "(".length()).equals("(")
                             || mainProcStmt.substring(endIdx, endIdx + "')".length()).equals("')")) {
                         if (mainProcStmt.substring(startIdx + 1, endIdx).indexOf(this.mainProc) == -1) {
-                            tmpList.add(mainProcStmt.substring(startIdx + 1, endIdx));
+                            if (!tmpList.contains(mainProcStmt.substring(startIdx + 1, endIdx))) {
+                                tmpList.add(mainProcStmt.substring(startIdx + 1, endIdx));
+                            }
                             //System.out.println("过程名为：" + mainProcStmt.substring(startIdx + 1, endIdx));
                             break;
                         }
@@ -72,7 +76,10 @@ public class ProcCalledRely {
                             || mainProcStmt.substring(endIdx, endIdx + "(".length()).equals("(")
                             || mainProcStmt.substring(endIdx, endIdx + "\n".length()).equals("\n")) {
                         //System.out.println("insert: " + mainProcStmt.substring(startIdx + "insert into ".length(), endIdx));
-                        tmpMap.put(mainProcStmt.substring(startIdx + "insert into ".length(), endIdx), "insert");
+                        if (!tmpMap.containsKey(mainProcStmt.substring(startIdx + "insert into ".length(), endIdx))
+                                && !tmpMap.containsValue("insert")) {
+                            tmpMap.put(mainProcStmt.substring(startIdx + "insert into ".length(), endIdx), "insert");
+                        }
                         break;
                     }
                 }
@@ -84,7 +91,10 @@ public class ProcCalledRely {
                             || mainProcStmt.substring(endIdx, endIdx + "(".length()).equals("(")
                             || mainProcStmt.substring(endIdx, endIdx + "\n".length()).equals("\n")) {
                         //System.out.println("merge: " + mainProcStmt.substring(startIdx + "merge into ".length(), endIdx));
-                        tmpMap.put(mainProcStmt.substring(startIdx + "merge into ".length(), endIdx), "insert");
+                        if (!tmpMap.containsKey(mainProcStmt.substring(startIdx + "merge into ".length(), endIdx))
+                                && !tmpMap.containsValue("insert")) {
+                            tmpMap.put(mainProcStmt.substring(startIdx + "merge into ".length(), endIdx), "insert");
+                        }
                         break;
                     }
                 }
@@ -96,7 +106,10 @@ public class ProcCalledRely {
                             || mainProcStmt.substring(endIdx, endIdx + "(".length()).equals("(")
                             || mainProcStmt.substring(endIdx, endIdx + "\n".length()).equals("\n")) {
                         //System.out.println("update: " + mainProcStmt.substring(startIdx + "update ".length(), endIdx));
-                        tmpMap.put(mainProcStmt.substring(startIdx + "update ".length(), endIdx), "insert");
+                        if (!tmpMap.containsKey(mainProcStmt.substring(startIdx + "update ".length(), endIdx))
+                                && !tmpMap.containsValue("insert")) {
+                            tmpMap.put(mainProcStmt.substring(startIdx + "update ".length(), endIdx), "insert");
+                        }
                         break;
                     }
                 }
@@ -131,13 +144,20 @@ public class ProcCalledRely {
                                 e = e.trim();
                                 if (!e.contains(" ")) {
                                     //System.out.println("        So the subTable is:" + e);
-                                    tmpMap.put(e, "from");
+                                    if (!tmpMap.containsKey(e)
+                                            && !tmpMap.containsValue("from")) {
+                                        tmpMap.put(e, "from");
+                                    }
+                                    break;
                                 } else {
                                     for (int i = 0; i < e.length(); i++) {
                                         if (e.substring(i, i + " ".length()).equals(" ")
                                                 || e.substring(i, i + "\n".length()).equals("\n")) {
                                             //System.out.println("        So the subTable is:" + e.substring(0, i));
-                                            tmpMap.put(e.substring(0, i), "from");
+                                            if (!tmpMap.containsKey(e.substring(0, i))
+                                                    && !tmpMap.containsValue("from")) {
+                                                tmpMap.put(e.substring(0, i), "from");
+                                            }
                                             break;
                                         }
                                     }
@@ -149,7 +169,10 @@ public class ProcCalledRely {
                                 if (e.substring(i, i + " ".length()).equals(" ")
                                         || e.substring(i, i + "\n".length()).equals("\n")) {
                                     //System.out.println("        So the subTable is:" + e.substring(0, i));
-                                    tmpMap.put(e.substring(0, i), "from");
+                                    if (!tmpMap.containsKey(e.substring(0, i))
+                                            && !tmpMap.containsValue("from")) {
+                                        tmpMap.put(e.substring(0, i), "from");
+                                    }
                                     break;
                                 }
                             }
@@ -168,7 +191,10 @@ public class ProcCalledRely {
                             || mainProcStmt.substring(endIdx, endIdx + "\n".length()).equals("\n"))
                             && !mainProcStmt.substring(startIdx + "using ".length(), startIdx + "using ".length() + 1).equals("(")) {
                         //System.out.println("using: " + mainProcStmt.substring(startIdx + "using ".length(), endIdx));
-                        tmpMap.put(mainProcStmt.substring(startIdx + "using ".length(), endIdx), "from");
+                        if (!tmpMap.containsKey(mainProcStmt.substring(startIdx + "using ".length(), endIdx))
+                                && !tmpMap.containsValue("from")) {
+                            tmpMap.put(mainProcStmt.substring(startIdx + "using ".length(), endIdx), "from");
+                        }
                         break;
                     }
                 }
@@ -182,7 +208,10 @@ public class ProcCalledRely {
                             || mainProcStmt.substring(endIdx, endIdx + "\n".length()).equals("\n"))
                             && !mainProcStmt.substring(startIdx + "join ".length(), startIdx + "join ".length() + 1).equals("(")) {
                         //System.out.println("join: " + mainProcStmt.substring(startIdx + "join ".length(), endIdx));
-                        tmpMap.put(mainProcStmt.substring(startIdx + "join ".length(), endIdx), "from");
+                        if (!tmpMap.containsKey(mainProcStmt.substring(startIdx + "join ".length(), endIdx))
+                                && !tmpMap.containsValue("from")) {
+                            tmpMap.put(mainProcStmt.substring(startIdx + "join ".length(), endIdx), "from");
+                        }
                         break;
                     }
                 }
