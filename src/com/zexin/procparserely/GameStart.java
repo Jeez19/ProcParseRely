@@ -18,15 +18,10 @@ public class GameStart {
                 "    insert into intf_user_register\n" +
                 "      ( imsi,\n" +
                 "        mobilephone,\n" +
-                "        inserttime,\n" +
-                "        updatetime,\n" +
                 "        fromer )\n" +
                 "    select \"imsi\",\"phone\",unix_to_oracle(\"insert_time\"),unix_to_oracle(\"update_time\"),'10010105' fromer\n" +
                 "      from \"t_user_imsi_reverse\"@egame_user\n" +
                 "     where \"insert_time\" >= :1\n" +
-                "       and \"insert_time\" <= :2                                 \n" +
-                "  >';\n" +
-                "  \n" +
                 "  v_sql2  varchar2(2000):=q'<\n" +
                 "    insert into intf_user_register(imsi,inserttime,fromer)\n" +
                 "    select tup.\"u_id\",unix_to_oracle(\"reg_date\"),'10020102'\n" +
@@ -52,147 +47,14 @@ public class GameStart {
                 "  execute immediate 'alter table intf_user_register truncate partition p'||v_date;\n" +
                 "\n" +
                 "  insert into intf_user_register\n" +
-                "        (userid,\n" +
-                "         egameno,\n" +
-                "         cipher,\n" +
-                "         paycipher,\n" +
-                "         egame,\n" +
-                "         mobilephone,\n" +
-                "         imsi,\n" +
-                "         modelid,\n" +
-                "         checkphone,\n" +
-                "         email,\n" +
-                "         checkemail,\n" +
-                "         tvmac,\n" +
-                "         psncode,\n" +
-                "         itvcode,\n" +
-                "         platformid,\n" +
-                "         provinceid,\n" +
-                "         cityid,\n" +
-                "         phonekey,\n" +
-                "         emailkey,\n" +
-                "         accountstatus,\n" +
-                "         realname,\n" +
-                "         cardno,\n" +
-                "         nickname,\n" +
-                "         gender,\n" +
-                "         headportrait,\n" +
-                "         isdefault,\n" +
-                "         birthday,\n" +
-                "         homecity,\n" +
-                "         province,\n" +
-                "         city,\n" +
-                "         typeoffigure,\n" +
-                "         bloodgroup,\n" +
-                "         standing,\n" +
-                "         maritalstatus,\n" +
-                "         platitude,\n" +
-                "         interestobject,\n" +
-                "         interestrange,\n" +
-                "         linkphone,\n" +
-                "         telephone,\n" +
-                "         linkemail,\n" +
-                "         address,\n" +
-                "         qqcode,\n" +
-                "         wbcode,\n" +
-                "         msncode,\n" +
-                "         workunit,\n" +
-                "         schoolid,\n" +
-                "         schoolname,\n" +
-                "         homepage,\n" +
-                "         comments,\n" +
-                "         friendship,\n" +
-                "         searched,\n" +
-                "         footmark,\n" +
-                "         message,\n" +
-                "         greeting,\n" +
-                "         sharing,\n" +
-                "         showage,\n" +
-                "         showlocation,\n" +
-                "         channelcode,\n" +
-                "         sourceurl,\n" +
-                "         fromer,\n" +
-                "         actiontime,\n" +
-                "         inserttime,\n" +
-                "         updatetime,\n" +
-                "         lasttwonum)\n" +
-                "    select userid,\n" +
-                "           egameno,\n" +
-                "           cipher,\n" +
-                "           paycipher,\n" +
-                "           egame,\n" +
-                "           mobilephone,\n" +
-                "           imsi,\n" +
-                "           modelid,\n" +
-                "           checkphone,\n" +
-                "           email,\n" +
-                "           checkemail,\n" +
-                "           tvmac,\n" +
-                "           psncode,\n" +
-                "           itvcode,\n" +
-                "           platformid,\n" +
-                "           provinceid,\n" +
-                "           cityid,\n" +
-                "           phonekey,\n" +
-                "           emailkey,\n" +
-                "           accountstatus,\n" +
-                "           realname,\n" +
-                "           cardno,\n" +
-                "           nickname,\n" +
-                "           gender,\n" +
-                "           headportrait,\n" +
-                "           isdefault,\n" +
-                "           birthday,\n" +
-                "           homecity,\n" +
-                "           province,\n" +
-                "           city,\n" +
-                "           typeoffigure,\n" +
-                "           bloodgroup,\n" +
-                "           standing,\n" +
-                "           maritalstatus,\n" +
-                "           platitude,\n" +
-                "           interestobject,\n" +
-                "           interestrange,\n" +
-                "           linkphone,\n" +
-                "           telephone,\n" +
-                "           linkemail,\n" +
-                "           address,\n" +
-                "           qqcode,\n" +
-                "           wbcode,\n" +
-                "           msncode,\n" +
-                "           workunit,\n" +
-                "           schoolid,\n" +
-                "           schoolname,\n" +
-                "           homepage,\n" +
-                "           comments,\n" +
-                "           friendship,\n" +
-                "           searched,\n" +
-                "           footmark,\n" +
-                "           message,\n" +
-                "           greeting,\n" +
-                "           sharing,\n" +
-                "           showage,\n" +
-                "           showlocation,\n" +
-                "           channelcode,\n" +
-                "           sourceurl,\n" +
-                "           fromer,\n" +
-                "           actiontime,\n" +
-                "           inserttime,\n" +
-                "           updatetime,\n" +
-                "           lasttwonum\n" +
+
                 "      from tb_user_register@to_gamedb t\n" +
+                "      join jointest@to_gamedb t\n" +
                 "     where t.inserttime >= to_date(v_date, 'yyyymmdd')\n" +
-                "       and t.inserttime < to_date(v_date, 'yyyymmdd') + 1;\n" +
-                "       \n" +
                 "    execute immediate replace(replace(v_sql,':1',v_begintime),':2',v_endtime);\n" +
                 "    execute immediate replace(replace(v_sql2,':1',v_begintime),':2',v_endtime);\n" +
                 "\n" +
-                "    sp_proc_run_log('update',v_log_id,null,null,null,null,0,sqlcode,sql%rowcount,null,null);\n" +
-                "    commit;\n" +
-                "exception\n" +
-                "    when others then\n" +
-                "         sp_proc_run_log('update',v_log_id,null,null,null,null,-1,substr(sqlerrm,1,200),null,null,null);\n" +
-                "end;";
+                "    sp_proc_run_log('update',v_log_id,null,null,null,null,0,sqlcode,sql%rowcount,null,null);\n";
 
         //System.out.println(sqlStmt.strStmtDetail);
 
