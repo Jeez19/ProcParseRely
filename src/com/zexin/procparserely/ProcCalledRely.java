@@ -3,23 +3,60 @@ package com.zexin.procparserely;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Zexin on 2015/11/13.
  */
 public class ProcCalledRely {
-    String mainProc;
+    String mainProcName;
     String mainProcStmt;
     ArrayList<String> subProc;
     Map<String, String> tbMap;
 
     ProcCalledRely(String procName, String procStmt) {
-        this.mainProc = procName;
+        this.mainProcName = procName;
         this.mainProcStmt = procStmt.toLowerCase();
         this.subProc = this.spRetrieve(this.mainProcStmt);
         this.tbMap = this.tbRetrieve(this.mainProcStmt);
     }
 
+    ArrayList<String> spRetrieve(String mainProcStmt) {
+        ArrayList<String> tmpList = new ArrayList<String>();
+        int sIdx;
+        int eIdx;
+        Pattern pattern = Pattern.compile("\\w|_");
+        Matcher matcher;
+        boolean flag;
+        for (sIdx = 0; sIdx <= mainProcStmt.length() - 4; sIdx++) {
+            if (mainProcStmt.substring(sIdx, sIdx + "pkg_".length()).equals("pkg_")
+                    || mainProcStmt.substring(sIdx, sIdx + "sp_".length()).equals("sp_")) {
+                for (eIdx = sIdx; eIdx <= mainProcStmt.length() - 4; eIdx++) {
+                    matcher = pattern.matcher(mainProcStmt.substring(eIdx, eIdx + 1));
+                    flag = matcher.matches();
+                    if (!flag) {
+                        if (!(mainProcStmt.substring(sIdx, eIdx).equals("sp_run_task")
+                                || (mainProcStmt.substring(sIdx, eIdx).equals("pkg_module_parallel"))
+                                || (mainProcStmt.substring(sIdx, eIdx).equals("sp_parallel_run")))) {
+                            tmpList.add(mainProcStmt.substring(sIdx, eIdx));
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        return tmpList;
+    }
+
+
+    Map<String, String> tbRetrieve(String mainProcStmt) {
+        Map<String, String> tmpMap = new HashMap<String, String>();
+
+        return tmpMap;
+    }
+    /*
     ArrayList<String> spRetrieve(String mainProcStmt) {
         ArrayList<String> tmpList = new ArrayList<String>();
         int startIdx;
@@ -131,7 +168,7 @@ public class ProcCalledRely {
                 }
             }
             */
-
+            /*
             if (mainProcStmt.substring(startIdx, startIdx + "from ".length()).equals("from ")) {
                 for (endIdx = startIdx + "from ".length(); endIdx <= mainProcStmt.length() - "where ".length(); endIdx++) {
                     if (mainProcStmt.substring(endIdx, endIdx + "where ".length()).equals("where ")
@@ -222,4 +259,5 @@ public class ProcCalledRely {
 
         return tmpMap;
     }
+    */
 }
