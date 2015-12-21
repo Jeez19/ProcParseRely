@@ -39,7 +39,9 @@ public class ProcCalledRely {
                         if (!(mainProcStmt.substring(sIdx, eIdx).equals("sp_run_task")
                                 || (mainProcStmt.substring(sIdx, eIdx).equals("pkg_module_parallel"))
                                 || (mainProcStmt.substring(sIdx, eIdx).equals("sp_parallel_run")))) {
-                            tmpList.add(mainProcStmt.substring(sIdx, eIdx));
+                            if (!tmpList.contains(mainProcStmt.substring(sIdx, eIdx))) {
+                                tmpList.add(mainProcStmt.substring(sIdx, eIdx));
+                            }
                         }
                         break;
                     }
@@ -53,6 +55,27 @@ public class ProcCalledRely {
 
     Map<String, String> tbRetrieve(String mainProcStmt) {
         Map<String, String> tmpMap = new HashMap<String, String>();
+        int sIdx;
+        int eIdx;
+        int blockFlag = 0;
+        for (sIdx = 0; sIdx <= mainProcStmt.length() - 1; sIdx++) {
+            if (mainProcStmt.substring(sIdx, sIdx + 1).equals("(")) {
+                blockFlag = blockFlag + 1;
+                for (eIdx = sIdx; eIdx <= mainProcStmt.length() - 1; eIdx++) {
+                    if (mainProcStmt.substring(eIdx, eIdx + 1).equals("(")) {
+                        blockFlag = blockFlag + 1;
+                    } else if (mainProcStmt.substring(eIdx, eIdx + 1).equals(")")) {
+                        blockFlag = blockFlag - 1;
+                        if (blockFlag == 0) {
+                            String tmpBlockStmt = mainProcStmt.substring(sIdx + 1, eIdx);
+                            System.out.println(tmpBlockStmt);
+                            mainProcStmt = mainProcStmt.replace(tmpBlockStmt, "");
+                            break;
+                        }
+                    }
+                }
+            }
+        }
 
         return tmpMap;
     }

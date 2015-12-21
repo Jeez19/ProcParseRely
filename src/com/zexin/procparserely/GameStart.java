@@ -8,16 +8,17 @@ import java.util.Iterator;
 public class GameStart {
     public static void main(String args[]) {
         SQLstmt sqlStmt = new SQLstmt();
-        sqlStmt.strTBName = "sp_dw_list_manager_day";
+        sqlStmt.strTBName = "sp_intf_goldmall_user_task";
 
         sqlStmt.strStmtDetail = SQLstmtParse.stmtParse(sqlStmt.strTBName);
 
 
         ProcCalledRely procCalledRely = new ProcCalledRely(sqlStmt.strTBName, sqlStmt.strStmtDetail);
         //System.out.println("MainProcName is: " + procCalledRely.mainProcName);
-        System.out.println("MainProcStmt is: " + procCalledRely.mainProcStmt);
-        System.out.print("\n");
+        //System.out.println("MainProcStmt is: \n" + procCalledRely.mainProcStmt);
+        //System.out.print("\n");
 
+        /*
         for (String e : procCalledRely.subProc) {
             System.out.println("        SubProc is:" + e);
         }
