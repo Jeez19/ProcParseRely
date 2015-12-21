@@ -29,6 +29,7 @@ public class ProcCalledRely {
         Pattern pattern = Pattern.compile("\\w|_");
         Matcher matcher;
         boolean flag;
+        //遍历mainProcStmt，解析出所有procedure和package
         for (sIdx = 0; sIdx <= mainProcStmt.length() - 4; sIdx++) {
             if (mainProcStmt.substring(sIdx, sIdx + "pkg_".length()).equals("pkg_")
                     || mainProcStmt.substring(sIdx, sIdx + "sp_".length()).equals("sp_")) {
@@ -36,9 +37,11 @@ public class ProcCalledRely {
                     matcher = pattern.matcher(mainProcStmt.substring(eIdx, eIdx + 1));
                     flag = matcher.matches();
                     if (!flag) {
+                        //排除指定procedure和package
                         if (!(mainProcStmt.substring(sIdx, eIdx).equals("sp_run_task")
                                 || (mainProcStmt.substring(sIdx, eIdx).equals("pkg_module_parallel"))
                                 || (mainProcStmt.substring(sIdx, eIdx).equals("sp_parallel_run")))) {
+                            //arraylist需要去重
                             if (!tmpList.contains(mainProcStmt.substring(sIdx, eIdx))) {
                                 tmpList.add(mainProcStmt.substring(sIdx, eIdx));
                             }
@@ -57,28 +60,159 @@ public class ProcCalledRely {
         Map<String, String> tmpMap = new HashMap<String, String>();
         int sIdx;
         int eIdx;
-        int blockFlag = 0;
+        Pattern pattern = Pattern.compile("\\w|_");
+        Matcher matcher;
+        boolean flag;
+        //第一步先筛选出所有括号内内容
         for (sIdx = 0; sIdx <= mainProcStmt.length() - 1; sIdx++) {
             if (mainProcStmt.substring(sIdx, sIdx + 1).equals("(")) {
-                blockFlag = blockFlag + 1;
+                //blockFlag表示括号范围的进出
+                int blockFlag = 0;
                 for (eIdx = sIdx; eIdx <= mainProcStmt.length() - 1; eIdx++) {
                     if (mainProcStmt.substring(eIdx, eIdx + 1).equals("(")) {
                         blockFlag = blockFlag + 1;
                     } else if (mainProcStmt.substring(eIdx, eIdx + 1).equals(")")) {
                         blockFlag = blockFlag - 1;
+                        //blockFlag为0时表示这一段括号解析完毕
                         if (blockFlag == 0) {
                             String tmpBlockStmt = mainProcStmt.substring(sIdx + 1, eIdx);
-                            System.out.println(tmpBlockStmt);
-                            mainProcStmt = mainProcStmt.replace(tmpBlockStmt, "");
+                            //去除括号内内容
+                            mainProcStmt = mainProcStmt.replace("(" + tmpBlockStmt + ")", "()");
+                            //迭代解析括号内括号
+                            //System.out.println(tmpBlockStmt);
+                            tmpMap.putAll(this.tbRetrieve(tmpBlockStmt));
                             break;
                         }
                     }
                 }
             }
         }
+        //System.out.println(mainProcStmt);
 
+        //对去除括号内内容的sql语句开始进行语法解析。
+        //解析insert类table。包括insert into, merge into, update三类。
+        for (sIdx = 0; sIdx <= mainProcStmt.length() - 12; sIdx++) {
+            //insert
+            if (mainProcStmt.substring(sIdx, sIdx + "insert into ".length()).equals("insert into ")) {
+                for (eIdx = sIdx + "insert into ".length(); eIdx <= mainProcStmt.length() - 1; eIdx++) {
+                    matcher = pattern.matcher(mainProcStmt.substring(eIdx, eIdx + 1));
+                    flag = matcher.matches();
+                    if (!flag) {
+                        tmpMap.put(mainProcStmt.substring(sIdx + "insert into ".length(), eIdx), "insert");
+                        //System.out.println(mainProcStmt.substring(sIdx + "insert into ".length(), eIdx));
+                        break;
+                    }
+                }
+            }
+            //merge
+            if (mainProcStmt.substring(sIdx, sIdx + "merge into ".length()).equals("merge into ")) {
+                for (eIdx = sIdx + "merge into ".length(); eIdx <= mainProcStmt.length() - 1; eIdx++) {
+                    matcher = pattern.matcher(mainProcStmt.substring(eIdx, eIdx + 1));
+                    flag = matcher.matches();
+                    if (!flag) {
+                        tmpMap.put(mainProcStmt.substring(sIdx + "merge into ".length(), eIdx), "insert");
+                        //System.out.println(mainProcStmt.substring(sIdx + "merge into ".length(), eIdx));
+                        break;
+                    }
+                }
+            }
+            //update
+            if (mainProcStmt.substring(sIdx, sIdx + "update ".length()).equals("update ")) {
+                for (eIdx = sIdx + "update ".length(); eIdx <= mainProcStmt.length() - 1; eIdx++) {
+                    matcher = pattern.matcher(mainProcStmt.substring(eIdx, eIdx + 1));
+                    flag = matcher.matches();
+                    if (!flag) {
+                        tmpMap.put(mainProcStmt.substring(sIdx + "update ".length(), eIdx), "insert");
+                        //System.out.println(mainProcStmt.substring(sIdx + "update ".length(), eIdx));
+                        break;
+                    }
+                }
+            }
+        }
+
+        //解析from类table。包括join, using, from三类。
+        for (sIdx = 0; sIdx < mainProcStmt.length() - 10; sIdx++) {
+            //using
+            if (mainProcStmt.substring(sIdx, sIdx + "using ".length()).equals("using ")) {
+                for (eIdx = sIdx + "using ".length(); eIdx < mainProcStmt.length() - 10; eIdx++) {
+                    if (mainProcStmt.substring(eIdx, eIdx + " on".length()).equals(" on")) {
+                        String tmpString = mainProcStmt.substring(sIdx + "using ".length(), eIdx);
+                        String[] tmpSplitAll = tmpString.split(",");
+                        for (String e : tmpSplitAll) {
+                            String[] tmpSplitEm = e.trim().split(" ");
+                            if (!(tmpSplitEm[0].trim().equals("dual")
+                                    || tmpSplitEm[0].trim().equals("()"))) {
+                                //System.out.println(tmpSplitEm[0].trim());
+                                tmpMap.put(tmpSplitEm[0].trim(), "from");
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+
+            //join
+            if (mainProcStmt.substring(sIdx, sIdx + "join ".length()).equals("join ")) {
+                for (eIdx = sIdx + "join ".length(); eIdx < mainProcStmt.length() - 10; eIdx++) {
+                    if (mainProcStmt.substring(eIdx, eIdx + " on".length()).equals(" on")) {
+                        String tmpString = mainProcStmt.substring(sIdx + "join ".length(), eIdx);
+                        String[] tmpSplitAll = tmpString.split(" ");
+                        if (!(tmpSplitAll[0].trim().equals("dual")
+                                || tmpSplitAll[0].trim().equals("()"))) {
+                            tmpMap.put(tmpSplitAll[0].trim(), "from");
+                        }
+                        break;
+                    }
+                }
+            }
+
+            //from
+            if (mainProcStmt.substring(sIdx, sIdx + "from ".length()).equals("from ")) {
+                for (eIdx = sIdx + "from ".length(); eIdx < mainProcStmt.length() - 10; eIdx++) {
+                    if (mainProcStmt.substring(eIdx, eIdx + " join".length()).equals(" join")) {
+                        String tmpString = mainProcStmt.substring(sIdx + "from ".length(), eIdx);
+                        String[] tmpSplitAll = tmpString.split(" ");
+                        if (!(tmpSplitAll[0].trim().equals("dual")
+                                || tmpSplitAll[0].trim().equals("()"))) {
+                            //System.out.println(tmpSplitAll[0].trim());
+                            tmpMap.put(tmpSplitAll[0].trim(), "from");
+                        }
+                        break;
+                    } else if (mainProcStmt.substring(eIdx, eIdx + "where".length()).equals("where")) {
+                        String tmpString = mainProcStmt.substring(sIdx + "from ".length(), eIdx);
+                        String[] tmpSplitAll = tmpString.split(",");
+                        for (String e : tmpSplitAll) {
+                            String[] tmpSplitEm = e.trim().split(" ");
+                            if (!(tmpSplitEm[0].trim().equals("dual")
+                                    || tmpSplitEm[0].trim().equals("()"))) {
+                                //System.out.println(tmpSplitEm[0].trim());
+                                tmpMap.put(tmpSplitEm[0].trim(), "from");
+                            }
+                        }
+                        break;
+                    } else if (mainProcStmt.substring(eIdx, eIdx + ";".length()).equals(";")) {
+                        String tmpString = mainProcStmt.substring(sIdx + "from ".length(), eIdx);
+                        String[] tmpSplitAll = tmpString.split(",");
+                        for (String e : tmpSplitAll) {
+                            String[] tmpSplitEm = e.trim().split(" ");
+                            if (!(tmpSplitEm[0].trim().equals("dual")
+                                    || tmpSplitEm[0].trim().equals("()"))) {
+                                //System.out.println(tmpSplitEm[0].trim());
+                                tmpMap.put(tmpSplitEm[0].trim(), "from");
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        }
         return tmpMap;
     }
+
+
+}
+
+
     /*
     ArrayList<String> spRetrieve(String mainProcStmt) {
         ArrayList<String> tmpList = new ArrayList<String>();
@@ -283,4 +417,4 @@ public class ProcCalledRely {
         return tmpMap;
     }
     */
-}
+
