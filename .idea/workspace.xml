@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7cb7222-9750-421e-bb0a-531c1d2ef001" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProcParseRely/com/zexin/procparserely/GameStart.class" afterPath="$PROJECT_DIR$/out/production/ProcParseRely/com/zexin/procparserely/GameStart.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProcParseRely/com/zexin/procparserely/ProcCalledRely.class" afterPath="$PROJECT_DIR$/out/production/ProcParseRely/com/zexin/procparserely/ProcCalledRely.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/zexin/procparserely/GameStart.java" afterPath="$PROJECT_DIR$/src/com/zexin/procparserely/GameStart.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/zexin/procparserely/ProcCalledRely.java" afterPath="$PROJECT_DIR$/src/com/zexin/procparserely/ProcCalledRely.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -28,25 +25,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="GameStart.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GameStart.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/zexin/procparserely/GameStart.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.95444685">
-              <caret line="22" column="58" selection-start-line="22" selection-start-column="58" selection-end-line="22" selection-end-column="58" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProcCalledRely.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ProcCalledRely.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/zexin/procparserely/ProcCalledRely.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="199" column="34" selection-start-line="199" selection-start-column="34" selection-end-line="199" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.53333336">
+              <caret line="48" column="6" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="6" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#734#742#0" expanded="true" />
-                <element signature="e#2261#2277#0" expanded="true" />
+                <element signature="e#2452#2468#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -77,8 +74,8 @@
         <option value="$PROJECT_DIR$/src/com/zexin/procparserely/DBConnection.java" />
         <option value="$PROJECT_DIR$/src/com/zexin/procparserely/ProcContain.java" />
         <option value="$PROJECT_DIR$/src/com/zexin/procparserely/SQLstmtParse.java" />
-        <option value="$PROJECT_DIR$/src/com/zexin/procparserely/ProcCalledRely.java" />
         <option value="$PROJECT_DIR$/src/com/zexin/procparserely/GameStart.java" />
+        <option value="$PROJECT_DIR$/src/com/zexin/procparserely/ProcCalledRely.java" />
       </list>
     </option>
   </component>
@@ -486,7 +483,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450673241423</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="重写subProc和subTable的解析。">
+      <created>1450688379255</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1450688379255</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -501,7 +504,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.47027028" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.7254054" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16471216" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -536,7 +539,8 @@
     <MESSAGE value="避免添加重复的subProc和subTable" />
     <MESSAGE value="避免添加重复的subProc和subTable，修正判断错误……" />
     <MESSAGE value="重写subProc的获取。简化获取方式。" />
-    <option name="LAST_COMMIT_MESSAGE" value="重写subProc的获取。简化获取方式。" />
+    <MESSAGE value="重写subProc和subTable的解析。" />
+    <option name="LAST_COMMIT_MESSAGE" value="重写subProc和subTable的解析。" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -576,7 +580,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#734#742#0" expanded="true" />
-            <element signature="e#2261#2277#0" expanded="true" />
+            <element signature="e#2452#2468#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -596,7 +600,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#734#742#0" expanded="true" />
-            <element signature="e#2261#2277#0" expanded="true" />
+            <element signature="e#2452#2468#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -616,7 +620,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#734#742#0" expanded="true" />
-            <element signature="e#2261#2277#0" expanded="true" />
+            <element signature="e#2452#2468#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -636,7 +640,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#734#742#0" expanded="true" />
-            <element signature="e#2261#2277#0" expanded="true" />
+            <element signature="e#2452#2468#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -656,7 +660,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#734#742#0" expanded="true" />
-            <element signature="e#2261#2277#0" expanded="true" />
+            <element signature="e#2452#2468#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -684,7 +688,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#734#742#0" expanded="true" />
-            <element signature="e#2261#2277#0" expanded="true" />
+            <element signature="e#2452#2468#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -704,7 +708,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#734#742#0" expanded="true" />
-            <element signature="e#2261#2277#0" expanded="true" />
+            <element signature="e#2452#2468#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -724,7 +728,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#734#742#0" expanded="true" />
-            <element signature="e#2261#2277#0" expanded="true" />
+            <element signature="e#2452#2468#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -744,7 +748,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#734#742#0" expanded="true" />
-            <element signature="e#2261#2277#0" expanded="true" />
+            <element signature="e#2452#2468#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -764,7 +768,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#734#742#0" expanded="true" />
-            <element signature="e#2261#2277#0" expanded="true" />
+            <element signature="e#2452#2468#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -784,7 +788,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#734#742#0" expanded="true" />
-            <element signature="e#2261#2277#0" expanded="true" />
+            <element signature="e#2452#2468#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -804,7 +808,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#734#742#0" expanded="true" />
-            <element signature="e#2261#2277#0" expanded="true" />
+            <element signature="e#2452#2468#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -824,7 +828,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#734#742#0" expanded="true" />
-            <element signature="e#2261#2277#0" expanded="true" />
+            <element signature="e#2452#2468#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -881,23 +885,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/zexin/procparserely/ProcCalledRely.java">
+    <entry file="file://$PROJECT_DIR$/src/com/zexin/procparserely/GameStart.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="199" column="34" selection-start-line="199" selection-start-column="34" selection-end-line="199" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#734#742#0" expanded="true" />
-            <element signature="e#2261#2277#0" expanded="true" />
-          </folding>
+          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/zexin/procparserely/GameStart.java">
+    <entry file="file://$PROJECT_DIR$/src/com/zexin/procparserely/ProcCalledRely.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.95444685">
-          <caret line="22" column="58" selection-start-line="22" selection-start-column="58" selection-end-line="22" selection-end-column="58" />
-          <folding />
+        <state vertical-scroll-proportion="0.53333336">
+          <caret line="48" column="6" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="6" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#734#742#0" expanded="true" />
+            <element signature="e#2452#2468#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -40,7 +40,9 @@ public class ProcCalledRely {
                         //排除指定procedure和package
                         if (!(mainProcStmt.substring(sIdx, eIdx).equals("sp_run_task")
                                 || (mainProcStmt.substring(sIdx, eIdx).equals("pkg_module_parallel"))
-                                || (mainProcStmt.substring(sIdx, eIdx).equals("sp_parallel_run")))) {
+                                || (mainProcStmt.substring(sIdx, eIdx).equals("sp_proc_run_log"))
+                                || (mainProcStmt.substring(sIdx, eIdx).equals("sp_parallel_run"))
+                                || (mainProcStmt.substring(sIdx, eIdx).equals(mainProcName)))) {
                             //arraylist需要去重
                             if (!tmpList.contains(mainProcStmt.substring(sIdx, eIdx))) {
                                 tmpList.add(mainProcStmt.substring(sIdx, eIdx));
