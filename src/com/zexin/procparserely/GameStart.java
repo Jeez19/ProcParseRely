@@ -16,6 +16,8 @@ public class GameStart {
         //System.out.println("MainProcStmt is: \n" + procCalledRely.mainProcStmt);
 
         //System.out.print("\n");
+        String sqlTruncateTable = "truncate table zzx_tb_proc_rely";
+        SQLstmtExe.executeSQL(sqlTruncateTable);
         for (String e : procCalledRely.subProc) {
             String tmpSQL = "insert into zzx_tb_proc_rely (proc_name, rely_type, rely_name) values ('" + procCalledRely.mainProcName + "','subProc','" + e + "')";
             System.out.println("        SubProc is:" + tmpSQL);
@@ -37,7 +39,7 @@ public class GameStart {
         }
     }
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
         goBabyGo("sp_dw_list_manager_day");
     }
 }
