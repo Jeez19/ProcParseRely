@@ -18,7 +18,6 @@ public class SQLstmtExe {
 
     public static String getProcPropeties(String strTBName) {
         StringBuilder stbStmtDetail = new StringBuilder();
-
         try {
             Connection oracleConn = DBConnection.getOracleConn();
             Statement stmtMySQL = oracleConn.createStatement();
@@ -33,9 +32,11 @@ public class SQLstmtExe {
             if (!stmtMySQL.equals(null)) {
                 stmtMySQL.close();
             }
+            /*
             if (!oracleConn.equals(null)) {
                 oracleConn.close();
             }
+            */
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -45,7 +46,6 @@ public class SQLstmtExe {
     }
 
     public static void executeSQL(String stmt) {
-
         try {
             Connection oracleConn = DBConnection.getOracleConn();
             Statement stmtMySQL = oracleConn.createStatement();
@@ -53,9 +53,11 @@ public class SQLstmtExe {
             if (!stmtMySQL.equals(null)) {
                 stmtMySQL.close();
             }
+            /*
             if (!oracleConn.equals(null)) {
                 oracleConn.close();
             }
+            */
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
