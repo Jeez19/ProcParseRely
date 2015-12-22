@@ -1,5 +1,8 @@
 package com.zexin.procparserely;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Zexin on 2015/11/12.
  */
@@ -16,22 +19,20 @@ public class GameStart {
         //System.out.println("MainProcStmt is: \n" + procCalledRely.mainProcStmt);
 
         //System.out.print("\n");
-        String sqlTruncateTable = "truncate table zzx_tb_proc_rely";
-        SQLstmtExe.executeSQL(sqlTruncateTable);
         for (String e : procCalledRely.subProc) {
             String tmpSQL = "insert into zzx_tb_proc_rely (proc_name, rely_type, rely_name) values ('" + procCalledRely.mainProcName + "','subProc','" + e + "')";
-            System.out.println("        SubProc is:" + tmpSQL);
+            //System.out.println("        SubProc is:" + tmpSQL);
             goBabyGo(e);
         }
 
-        System.out.print("\n");
+        //System.out.print("\n");
         for (String e : procCalledRely.tbIntoMap) {
             String tmpSQL = "insert into zzx_tb_proc_rely (proc_name, rely_type, rely_name) values ('" + procCalledRely.mainProcName + "','into table','" + e + "')";
             //System.out.println("        SubIntoTable is:" + tmpSQL);
             SQLstmtExe.executeSQL(tmpSQL);
         }
 
-        System.out.print("\n");
+        //System.out.print("\n");
         for (String e : procCalledRely.tbFromMap) {
             String tmpSQL = "insert into zzx_tb_proc_rely (proc_name, rely_type, rely_name) values ('" + procCalledRely.mainProcName + "','from table','" + e + "')";
             //System.out.println("        SubFromTable is:" + tmpSQL);
@@ -40,6 +41,12 @@ public class GameStart {
     }
 
     public static void main(String args[]) {
+        String sqlTruncateTable = "truncate table zzx_tb_proc_rely";
+        SQLstmtExe.executeSQL(sqlTruncateTable);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
         goBabyGo("sp_dw_list_manager_day");
+        df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
     }
 }
