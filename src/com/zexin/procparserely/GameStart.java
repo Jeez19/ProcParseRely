@@ -1,16 +1,14 @@
 package com.zexin.procparserely;
 
-import java.util.Iterator;
-
 /**
  * Created by Zexin on 2015/11/12.
  */
 public class GameStart {
     public static void main(String args[]) {
         SQLstmt sqlStmt = new SQLstmt();
-        sqlStmt.strTBName = "sp_dw_list_sms";
+        sqlStmt.strTBName = "sp_rpt_tv_sdownload_rank";
 
-        sqlStmt.strStmtDetail = SQLstmtParse.stmtParse(sqlStmt.strTBName);
+        sqlStmt.strStmtDetail = SQLstmtExe.stmtParse(sqlStmt.strTBName);
 
 
         ProcCalledRely procCalledRely = new ProcCalledRely(sqlStmt.strTBName, sqlStmt.strStmtDetail);
@@ -20,14 +18,24 @@ public class GameStart {
 
 
         for (String e : procCalledRely.subProc) {
-            System.out.println("        SubProc is:" + e);
+            String tmpSQL = "insert into zzx_tb_proc_rely (proc_name, rely_type, rely_name) values ('" + procCalledRely.mainProcName + "','subProc','" + e + "');";
+            System.out.println("        SubProc is:" + tmpSQL);
+            SQLstmtExe.executeSQL(tmpSQL);
         }
 
 
         System.out.print("\n");
-        for (String key : procCalledRely.tbMap.keySet()) {
-            System.out.println("        SubTable is:" + key + "\n               and the rely type is: " + procCalledRely.tbMap.get(key));
+        for (String e : procCalledRely.tbIntoMap) {
+            String tmpSQL = "insert into zzx_tb_proc_rely (proc_name, rely_type, rely_name) values ('" + procCalledRely.mainProcName + "','into table','" + e + "');";
+            System.out.println("        SubIntoTable is:" + tmpSQL);
+            SQLstmtExe.executeSQL(tmpSQL);
         }
 
+        System.out.print("\n");
+        for (String e : procCalledRely.tbFromMap) {
+            String tmpSQL = "insert into zzx_tb_proc_rely (proc_name, rely_type, rely_name) values ('" + procCalledRely.mainProcName + "','from table','" + e + "');";
+            System.out.println("        SubFromTable is:" + tmpSQL);
+            SQLstmtExe.executeSQL(tmpSQL);
+        }
     }
 }

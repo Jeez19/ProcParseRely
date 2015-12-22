@@ -8,7 +8,7 @@ import java.sql.Statement;
 /**
  * Created by Zexin on 2015/11/12.
  */
-public class SQLstmtParse {
+public class SQLstmtExe {
 
     public static String stmtParse(String strTBName) {
         String stbStmtDetail = getProcPropeties(strTBName);
@@ -18,10 +18,11 @@ public class SQLstmtParse {
 
     public static String getProcPropeties(String strTBName) {
         StringBuilder stbStmtDetail = new StringBuilder();
+
         try {
-            Connection mySQLConn = DBConnection.getMySQLConn();
-            Statement stmtMySQL = mySQLConn.createStatement();
-            String strSQLQuery = "SELECT text FROM jdbc_user_source where name = '" + strTBName + "'";
+            Connection oracleConn = DBConnection.getOracleConn();
+            Statement stmtMySQL = oracleConn.createStatement();
+            String strSQLQuery = "SELECT text FROM user_source where name = '" + strTBName.toUpperCase() + "'";
             ResultSet rsSet = stmtMySQL.executeQuery(strSQLQuery);
             while (rsSet.next()) {
                 stbStmtDetail = stbStmtDetail.append(rsSet.getString("text"));
@@ -32,8 +33,8 @@ public class SQLstmtParse {
             if (!stmtMySQL.equals(null)) {
                 stmtMySQL.close();
             }
-            if (!mySQLConn.equals(null)) {
-                mySQLConn.close();
+            if (!oracleConn.equals(null)) {
+                oracleConn.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,11 +44,31 @@ public class SQLstmtParse {
         return stbStmtDetail.toString();
     }
 
+    public static void executeSQL(String stmt) {
+
+        try {
+            Connection oracleConn = DBConnection.getOracleConn();
+            Statement stmtMySQL = oracleConn.createStatement();
+            stmtMySQL.executeUpdate(stmt);
+            if (!stmtMySQL.equals(null)) {
+                stmtMySQL.close();
+            }
+            if (!oracleConn.equals(null)) {
+                oracleConn.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public static String delComment(String stbStmtDetail) {
         String cmtB = "/*";
         String cmtA = "*/";
         stbStmtDetail = stbStmtDetail.replaceAll("\\/\\*.*\\*\\/", "");
-        stbStmtDetail = stbStmtDetail.replaceAll("--.*\\r", "");
+        stbStmtDetail = stbStmtDetail.replaceAll("--.*\\n", "");
         StringBuilder strFormSQL = new StringBuilder(stbStmtDetail);
         int delIdx01 = 0;
         int delIdx02;
