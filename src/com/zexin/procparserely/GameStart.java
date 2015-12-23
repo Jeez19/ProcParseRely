@@ -44,7 +44,7 @@ public class GameStart {
         SQLstmtExe.executeSQL(sqlTruncateTable);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
-        goBabyGo("SP_INTF_USER_CLIENT_VISIT_LOG");//SP_INTF_USER_CLIENT_VISIT_LOG, pkg_tm_yzf
+        goBabyGo("sp_dw_list_manager_day");//SP_INTF_USER_CLIENT_VISIT_LOG, pkg_tm_yzf
         df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
     }

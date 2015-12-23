@@ -77,7 +77,7 @@ public class SQLstmtExe {
                     if (stbStmtDetail.substring(eIdx, eIdx + 2).equals("*/")) {
                         //System.out.println("This is a comment: \n" + stbStmtDetail.substring(sIdx, eIdx + 2));
                         stbStmtDetail = stbStmtDetail.replace(stbStmtDetail.substring(sIdx, eIdx + 2), "");
-                        sIdx = 0;
+                        //sIdx = 0;
                         break;
                     }
                 }
