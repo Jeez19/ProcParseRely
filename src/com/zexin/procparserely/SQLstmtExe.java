@@ -67,24 +67,24 @@ public class SQLstmtExe {
 
 
     public static String delComment(String stbStmtDetail) {
-        String cmtB = "/*";
-        String cmtA = "*/";
         stbStmtDetail = stbStmtDetail.replaceAll("\\/\\*.*\\*\\/", "");
+        //System.out.println(stbStmtDetail);
         stbStmtDetail = stbStmtDetail.replaceAll("--.*\\n", "");
-        StringBuilder strFormSQL = new StringBuilder(stbStmtDetail);
-        int delIdx01 = 0;
-        int delIdx02;
-        for (int i = 0; i < strFormSQL.length() - 2; i++) {
-            String strLocate = strFormSQL.substring(i, i + 2);
-            if (strLocate.equals(cmtB)) {
-                delIdx01 = i;
-            }
-            if (strLocate.equals(cmtA)) {
-                delIdx02 = i + 2;
-                strFormSQL = strFormSQL.replace(delIdx01, delIdx02, "");
+        //System.out.println(stbStmtDetail);
+        for (int sIdx = 0; sIdx < stbStmtDetail.length() - 2; sIdx++) {
+            if (stbStmtDetail.substring(sIdx, sIdx + 2).equals("/*")) {
+                for (int eIdx = sIdx + 1; eIdx < stbStmtDetail.length() - 2; eIdx++) {
+                    if (stbStmtDetail.substring(eIdx, eIdx + 2).equals("*/")) {
+                        //System.out.println("This is a comment: \n" + stbStmtDetail.substring(sIdx, eIdx + 2));
+                        stbStmtDetail = stbStmtDetail.replace(stbStmtDetail.substring(sIdx, eIdx + 2), "");
+                        sIdx = 0;
+                        break;
+                    }
+                }
             }
         }
+        //System.out.println(stbStmtDetail);
 
-        return strFormSQL.toString();
+        return stbStmtDetail;
     }
 }

@@ -13,7 +13,6 @@ public class GameStart {
 
         sqlStmt.strStmtDetail = SQLstmtExe.stmtParse(sqlStmt.strTBName);
 
-
         ProcCalledRely procCalledRely = new ProcCalledRely(sqlStmt.strTBName, sqlStmt.strStmtDetail);
         //System.out.println("MainProcName is: " + procCalledRely.mainProcName);
         //System.out.println("MainProcStmt is: \n" + procCalledRely.mainProcStmt);
@@ -28,15 +27,15 @@ public class GameStart {
         //System.out.print("\n");
         for (String e : procCalledRely.tbIntoMap) {
             String tmpSQL = "insert into zzx_tb_proc_rely (proc_name, rely_type, rely_name) values ('" + procCalledRely.mainProcName + "','into table','" + e + "')";
-            //System.out.println("        SubIntoTable is:" + tmpSQL);
-            SQLstmtExe.executeSQL(tmpSQL);
+            System.out.println("        SubIntoTable is:" + tmpSQL);
+            //SQLstmtExe.executeSQL(tmpSQL);
         }
 
         //System.out.print("\n");
         for (String e : procCalledRely.tbFromMap) {
             String tmpSQL = "insert into zzx_tb_proc_rely (proc_name, rely_type, rely_name) values ('" + procCalledRely.mainProcName + "','from table','" + e + "')";
-            //System.out.println("        SubFromTable is:" + tmpSQL);
-            SQLstmtExe.executeSQL(tmpSQL);
+            System.out.println("        SubFromTable is:" + tmpSQL);
+            //SQLstmtExe.executeSQL(tmpSQL);
         }
     }
 
@@ -45,7 +44,7 @@ public class GameStart {
         SQLstmtExe.executeSQL(sqlTruncateTable);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
-        goBabyGo("pkg_tm_yzf");//SP_INTF_USER_CLIENT_VISIT_LOG, pkg_tm_yzf
+        goBabyGo("SP_INTF_USER_CLIENT_VISIT_LOG");//SP_INTF_USER_CLIENT_VISIT_LOG, pkg_tm_yzf
         df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
     }
