@@ -13,6 +13,7 @@ public class GameStart {
     public static void goBabyGo(String originalProc) {
         if (!GameStart.procList.contains(originalProc.toLowerCase())) {
             GameStart.procList.add(originalProc.toLowerCase());
+
             SQLstmt sqlStmt = new SQLstmt();
             sqlStmt.strTBName = originalProc.toLowerCase();
 
