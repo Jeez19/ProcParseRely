@@ -92,20 +92,20 @@ public class ProcCalledRely {
         //对去除括号内内容的sql语句开始进行语法解析。
         //解析insert类table。包括insert into, merge into, update三类。
         for (sIdx = 0; sIdx <= mainProcStmt.length() - 12; sIdx++) {
-            //insert
-            if (mainProcStmt.substring(sIdx, sIdx + "insert into ".length()).equals("insert into ")) {
-                for (eIdx = sIdx + "insert into ".length(); eIdx <= mainProcStmt.length() - 1; eIdx++) {
+            //into
+            if (mainProcStmt.substring(sIdx, sIdx + "into ".length()).equals("into ")) {
+                for (eIdx = sIdx + "into ".length(); eIdx <= mainProcStmt.length() - 1; eIdx++) {
                     matcher = pattern.matcher(mainProcStmt.substring(eIdx, eIdx + 1));
                     flag = matcher.matches();
                     if (!flag) {
-                        if (!tmpArray.contains(mainProcStmt.substring(sIdx + "insert into ".length(), eIdx))) {
-                            tmpArray.add(mainProcStmt.substring(sIdx + "insert into ".length(), eIdx));
+                        if (!tmpArray.contains(mainProcStmt.substring(sIdx + "into ".length(), eIdx))) {
+                            tmpArray.add(mainProcStmt.substring(sIdx + "into ".length(), eIdx));
                         }
                         break;
                     }
                 }
             }
-            //merge
+            /*
             if (mainProcStmt.substring(sIdx, sIdx + "merge into ".length()).equals("merge into ")) {
                 for (eIdx = sIdx + "merge into ".length(); eIdx <= mainProcStmt.length() - 1; eIdx++) {
                     matcher = pattern.matcher(mainProcStmt.substring(eIdx, eIdx + 1));
@@ -118,6 +118,7 @@ public class ProcCalledRely {
                     }
                 }
             }
+            */
             //update
             if (mainProcStmt.substring(sIdx, sIdx + "update ".length()).equals("update ")) {
                 for (eIdx = sIdx + "update ".length(); eIdx <= mainProcStmt.length() - 1; eIdx++) {
@@ -158,8 +159,7 @@ public class ProcCalledRely {
                             String tmpBlockStmt = mainProcStmt.substring(sIdx + 1, eIdx);
                             //去除括号内内容
                             mainProcStmt = mainProcStmt.replace("(" + tmpBlockStmt + ")", "()");
-                            //迭代解析括号内括号
-                            //System.out.println(tmpBlockStmt);
+                            //迭代解析括号内代码
                             tmpArray.addAll(this.tbFromRetrieve(tmpBlockStmt));
                             break;
                         }

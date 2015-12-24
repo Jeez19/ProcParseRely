@@ -19,7 +19,7 @@ public class SQLstmtExe {
     public static String getProcPropeties(String strTBName) {
         StringBuilder stbStmtDetail = new StringBuilder();
         try {
-            Connection oracleConn = DBConnection.getOracleConn();
+            Connection oracleConn = DBConnectionForProcRely.getOracleConn();
             Statement stmtMySQL = oracleConn.createStatement();
             String strSQLQuery = "SELECT text FROM user_source where name = '" + strTBName.toUpperCase() + "'";
             ResultSet rsSet = stmtMySQL.executeQuery(strSQLQuery);
@@ -47,7 +47,7 @@ public class SQLstmtExe {
 
     public static void executeSQL(String stmt) {
         try {
-            Connection oracleConn = DBConnection.getOracleConn();
+            Connection oracleConn = DBConnectionForProcRely.getOracleConn();
             Statement stmtMySQL = oracleConn.createStatement();
             stmtMySQL.executeUpdate(stmt);
             if (!stmtMySQL.equals(null)) {
